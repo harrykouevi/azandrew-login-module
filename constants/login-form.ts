@@ -13,7 +13,7 @@ export const buildLoginFormControlObj: ConfigsBuilderFn =
       label: translations['login.username'] ? translations['login.username'] : 'Nom utilisateur',
       type: InputTypes.TEXT_INPUT,
       placeholder: translations['login.username'] ? translations['login.username'] : 'Nom utilisateur',
-      formControlName: 'username',
+      formControlName: 'login',
       classes: 'clr-input',
       rules: {
         isRequired: true,
