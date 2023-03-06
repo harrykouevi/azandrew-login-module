@@ -36,6 +36,7 @@ export interface ComponentState {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnDestroy {
+
   private destroy$ = new Subject<{}>();
   moduleName = this.route.snapshot.data.moduleName;
   loginHeadingText = this.route.snapshot.data.loginHeadingText;
@@ -94,8 +95,11 @@ export class LoginComponent implements OnDestroy {
       filter(state => !state.authenticating && isDefined(state.isInitialState)),
       doLog('Logging state in loggin component: '),
       tap(state => {
+
         if (state.isLoggedIn) {
+
           // Checks if user has permission provided to the login component
+          console.log(state)
           if (!(state.user && (state.user instanceof User) && isDefined(this.route.snapshot.data.modulePermissions)
             && !(userCanAny(state.user, this.route.snapshot.data.modulePermissions)))) {
             // Navigate to dashboard
@@ -103,6 +107,11 @@ export class LoginComponent implements OnDestroy {
               this.router.navigateByUrl(`/${this.route.snapshot.data.dashboardPath}`);
             }, 1000);
           }
+
+          setTimeout(() => {
+            // this.router.navigateByUrl(`/${this.route.snapshot.data.dashboardPath}`);
+            this.router.navigateByUrl(`/`);
+          }, 1000);
         }
       }),
     ).subscribe();
